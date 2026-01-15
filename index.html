@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Rhetorik-Scanner</title>
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@100..900&family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..900;1,6..96,400..900&display=swap" rel="stylesheet">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            fontFamily: {
+              sans: ['"Lexend"', 'system-ui', '-apple-system', 'sans-serif'],
+              serif: ['"Bodoni Moda"', 'serif'],
+              mono: ['ui-monospace', 'SFMono-Regular', 'Menlo', 'monospace'],
+            },
+            fontSize: {
+              'h1': ['clamp(2.1rem, 2.2vw + 1.4rem, 2.6rem)', { lineHeight: '1.1', fontWeight: '600', letterSpacing: '0.02em' }],
+              'h2': ['clamp(1.25rem, 1.1vw + 0.9rem, 1.4rem)', { lineHeight: '1.3', fontWeight: '600' }],
+              'body': ['1rem', { lineHeight: '1.7', fontWeight: '400' }],
+              'label': ['0.85rem', { letterSpacing: '0.14em', fontWeight: '500' }],
+            },
+            borderRadius: {
+              'xl': '28px',
+              'md': '18px',
+              'pill': '999px',
+            },
+            colors: {
+              bgDark: '#E2E2E2',
+              charcoal: '#020404',
+              darkGrey: '#222222',
+              midGrey: '#535050',
+              softGrey: '#8A8787',
+              lightGrey: '#B8B6B6',
+              textPrimary: '#020404',
+              accent: {
+                coral: '#C3443D',
+                soft: '#8A8787',
+                blue: '#4C94F6',
+              },
+              emotion: {
+                wut: '#C3443D',
+                angst: '#4C94F6',
+                ekel: '#FF9F43',
+                freude: '#FFF44F',
+                ueberraschung: '#3BD39B',
+                neutral: '#71717A',
+                schuld: '#222222',
+                scham: '#535050',
+              }
+            },
+            boxShadow: {
+              'card': '0px 12px 48px rgba(0,0,0,0.06)',
+              'hero-input': '0 20px 60px -15px rgba(0,0,0,0.08)',
+              'brutalist': '12px 12px 0px 0px #020404',
+            }
+          },
+        },
+      }
+    </script>
+    <style>
+      :root {
+        --radius-xl: 28px;
+        --radius-md: 18px;
+        --radius-pill: 999px;
+      }
+
+      html, body {
+        height: 100%;
+        margin: 0;
+        background-color: #E2E2E2;
+        color: #020404;
+      }
+      
+      .bg-layer {
+        position: fixed;
+        inset: 0;
+        z-index: 0;
+        background-color: #E2E2E2;
+        pointer-events: none;
+      }
+
+      body {
+        overflow-x: hidden;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        position: relative;
+        font-family: 'Lexend', sans-serif;
+      }
+
+      ::-webkit-scrollbar { width: 8px; }
+      ::-webkit-scrollbar-track { background: transparent; }
+      ::-webkit-scrollbar-thumb { background: rgba(0, 0, 0, 0.1); border-radius: 10px; }
+
+      @keyframes fade-in {
+        from { opacity: 0; transform: translateY(10px); }
+        to { opacity: 1; transform: translateY(0); }
+      }
+      .animate-fade-in { animation: fade-in 0.8s ease-out forwards; }
+
+      .analysis-panel {
+        border-radius: var(--radius-xl);
+        background: #E2E2E2;
+        box-shadow: 0 10px 40px rgba(0,0,0,0.04);
+        border: 1px solid rgba(0, 0, 0, 0.05);
+      }
+
+      .url-panel {
+        border-radius: 24px;
+        background: rgba(255, 255, 255, 0.6);
+        border: 1px solid rgba(0, 0, 0, 0.06);
+        padding: 0.75rem;
+        display: flex;
+        gap: 0.75rem;
+        backdrop-filter: blur(20px);
+      }
+
+      .url-input {
+        flex: 1;
+        padding: 0.9rem 1.1rem;
+        border-radius: 18px;
+        border: 1px solid rgba(0, 0, 0, 0.06);
+        background: rgba(255, 255, 255, 0.8);
+        font-size: 0.95rem;
+        color: #020404;
+      }
+
+      .url-button {
+        padding: 0.9rem 1.8rem;
+        border-radius: 18px;
+        background: #C3443D;
+        font-weight: 600;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        color: white;
+      }
+
+      /* Brutalist frame utility */
+      .brutalist-window {
+        border: 2px solid #020404;
+        box-shadow: 12px 12px 0px 0px #020404;
+        border-radius: 0 !important;
+      }
+    </style>
+    <script type="importmap">
+    {
+      "imports": {
+        "d3": "https://cdn.jsdelivr.net/npm/d3@7/+esm",
+        "react-dom/": "https://aistudiocdn.com/react-dom@^19.2.0/",
+        "@google/genai": "https://aistudiocdn.com/@google/genai@^1.29.0",
+        "react/": "https://aistudiocdn.com/react@^19.2.0/",
+        "react": "https://aistudiocdn.com/react@^19.2.0"
+      }
+    }
+    </script>
+  </head>
+  <body class="antialiased selection:bg-accent-coral/20 selection:text-accent-coral">
+    <div class="bg-layer"></div>
+    <div id="root" class="relative z-10"></div>
+    <script type="module" src="/index.tsx"></script>
+  </body>
+</html>

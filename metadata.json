@@ -1,0 +1,5 @@
+{
+  "name": "Rhetorik-Scanner",
+  "description": "Ein Analysewerkzeug, das manipulative oder emotionale Sprache in Nachrichtenartikeln erkennt. ",
+  "requestFramePermissions": []
+}
